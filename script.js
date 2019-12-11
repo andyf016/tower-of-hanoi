@@ -7,8 +7,12 @@ const tower2 = document.getElementById("tB")
 const tower3 = document.getElementById("tC")
 let currentL = "string"
 
-let compare = function(a,b){
-    console.log(a.lastElementChild)
+
+
+
+
+let compare = function (a, b) {
+    //console.log(a.lastElementChild)
     let styleA = window.getComputedStyle(a)
     let styleB = window.getComputedStyle(b)
     let widthA = styleA.getPropertyValue("width")
@@ -16,73 +20,65 @@ let compare = function(a,b){
 
     widthA = parseInt(widthA)
     widthB = parseInt(widthB)
-    if(widthA>widthB){
+    if (widthA > widthB) {
         return true
     }
-    else{
+    else {
         return false
     }
 }
 
-let move = function(){
-    //let target = event.currentTarget.lastElementChild
-    console.log("function start", currentL)
-    if(currentL == "string"){
-        let currentTower = event.currentTarget
-        let lastDisk = currentTower.lastElementChild
-        currentL = lastDisk
-        currentL.classList.add("selected") 
-        console.log(currentL, "3rd log")
-    }
-    else{
-        if(event.currentTarget.lastElementChild){ 
-            console.log (currentL, event.currentTarget.lastElementChild, "nth log")
-            if(compare(currentL, event.currentTarget.lastElementChild)){
-                alert("invalid move")
-                currentL.classList.remove("selected")
-                currentL = "string"
-                console.log(currentL, event.currentTarget.lastElementChild, "4th log")
+let move = function () {
+   let count = tower3.childElementCount
+        //console.log("function start", currentL)
+        if (currentL == "string") {
+            let currentTower = event.currentTarget
+            let lastDisk = currentTower.lastElementChild
+            currentL = lastDisk
+            currentL.classList.add("selected")
+            //console.log(currentL, "3rd log")
+        }
+        else {
+            if (event.currentTarget.lastElementChild) {
+                //console.log(currentL, event.currentTarget.lastElementChild, "nth log")
+                if (compare(currentL, event.currentTarget.lastElementChild)) {
+                    alert("invalid move")
+                    currentL.classList.remove("selected")
+                    currentL = "string"
+                    //console.log(currentL, event.currentTarget.lastElementChild, "4th log")
+                }
+                else {
+                    event.currentTarget.appendChild(currentL)
+                    currentL.classList.remove("selected")
+                    currentL = "string"
+                    //console.log(logcurrentL, event.currentTarget.lastElementChild, "5th log")
+                }
             }
-            else{
+            else {
                 event.currentTarget.appendChild(currentL)
                 currentL.classList.remove("selected")
                 currentL = "string"
-                console.log(logcurrentL, event.currentTarget.lastElementChild, "5th log")
+                //console.log(currentL, event.currentTarget.lastElementChild, "5th log")
             }
         }
-        else{
-            event.currentTarget.appendChild(currentL)
-            currentL.classList.remove("selected")
-            currentL = "string"
-            console.log(currentL, event.currentTarget.lastElementChild, "5th log")
-        }
-        }
-    
-}
+        
+    }
+    let winner = function (){
+        move()
+        let count = tower3.childElementCount 
+        if(count == 4){
+            let div = document.getElementById("float")
+            let content = document.createTextNode("Winner!")
+            div.appendChild(content)
+         }
 
-
+    }
+                       
 tower1.onclick = move
 
 tower2.onclick = move
 
-tower3.onclick = move
-    
+tower3.onclick = winner
 
 
-/*
-1. Display Towers
-    a. Each tower is a flex container, column reverse 
-    b. 
-2. Provide a way to move disks
-    a. first click pick source tower 
-    b. second click picks destination tower and tries to move top disk of 
-        source tower to destination tower.
-    c. For move to be allowed, top disc on destination tower must be smaller
-        than disc on source tower.
-3. Win Condition
-    a. Towers A and B are empty 
 
-
-    let tb = document.querySelector(#tB)
-    tb.childElement 
-*/

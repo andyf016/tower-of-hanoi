@@ -6,6 +6,7 @@ const tower1 = document.getElementById("tA")
 const tower2 = document.getElementById("tB")
 const tower3 = document.getElementById("tC")
 let currentL = "string"
+let hasWon = false
 
 
 
@@ -66,12 +67,12 @@ let move = function () {
     let winner = function (){
         move()
         let count = tower3.childElementCount 
-        if(count == 4){
+        if(count == 4 && !hasWon){
             let div = document.getElementById("float")
             let content = document.createTextNode("Winner!")
             div.appendChild(content)
+            hasWon=true
          }
-
     }
                        
 tower1.onclick = move
